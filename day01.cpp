@@ -31,7 +31,6 @@ int solve(std::vector<std::string> input, bool part2 = false) {
 		});
 		std::string first_number{numbers[std::distance(numbers.begin(), std::find(numbers.begin(), numbers.end(), first_element)) % 10]};
 		std::string last_number{numbers[std::distance(numbers.begin(), std::find(numbers.begin(), numbers.end(), last_element)) % 10]};
-		std::cout << first_number + last_number << std::endl;
 		total_sum += std::stoi(first_number + last_number);
 	});
 	std::string output{part2 ? "Part 2" : "Part 1"};
