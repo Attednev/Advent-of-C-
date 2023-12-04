@@ -1,6 +1,6 @@
 #include "day0.h"
 
-void add_to_list(std::string number, std::vector<std::size_t>& list) {
+void add_to_list(const std::string& number, std::vector<std::size_t>& list) {
     if (!number.empty()) {
         list.push_back(std::stoi(number));
     }
@@ -8,16 +8,16 @@ void add_to_list(std::string number, std::vector<std::size_t>& list) {
 
 void extract_numbers(std::string line, std::vector<std::size_t>& winning_numbers, std::vector<std::size_t>& numbers_you_got) {
     short mode{0};      // modes: 0=card_number, 1=winning_numbers, 2=numbers_you_got
-    std::string number{""};
-    for (std::size_t i = 0; i < line.length(); i++) {
-        if (line[i] == ' ') {
+    std::string number;
+    for (const char symbol : line) {
+        if (symbol == ' ') {
             add_to_list(number, mode == 1 ? winning_numbers : numbers_you_got);
             number = "";
-        } else if (line[i] == ':' || line[i] == '|') {
+        } else if (symbol == ':' || symbol == '|') {
             mode++;
             number = "";
-        } else if (line[i] >= '0' && line[i] <= '9') {
-            number += line[i];
+        } else if (symbol >= '0' && symbol <= '9') {
+            number += symbol;
         }
     }
     add_to_list(number, mode == 1 ? winning_numbers : numbers_you_got);

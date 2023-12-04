@@ -6,6 +6,7 @@
 #include <string>
 #include <limits>
 #include <numeric>
+#include <utility>
 
 std::vector<std::string> read_input_file(int day) {
     std::string filename{(day < 10 ? "day0" : "day") + std::to_string(day) + "_input"};

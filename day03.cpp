@@ -45,25 +45,13 @@ void solve(std::vector<std::string> input) {
 
         for (std::size_t j = 1; (number = read_nth_number(input[i], j)) != 0; j++) {
             std::size_t number_position = read_nth_number(input[i], j, true);
-            long long parts_found;
-            parts_found = add_part_values(input[i], above, number, number_position, gear_ratio[i + 1]);
-            if (parts_found != 0) {
-                total += parts_found;
-                continue;
+            for (short k = 1; k <= 3; k++) {
+                long long parts_found = add_part_values(input[i], above, number, number_position, gear_ratio[i + k]);
+                if (parts_found != 0) {
+                    total += parts_found;
+                    break;
+                }
             }
-
-            parts_found = add_part_values(input[i], center, number, number_position, gear_ratio[i + 2]);
-            if (parts_found != 0) {
-                total += parts_found;
-                continue;
-            }
-
-            parts_found = add_part_values(input[i], below, number, number_position, gear_ratio[i + 3]);
-            if (parts_found != 0) {
-                total += parts_found;
-                continue;
-            }
-
         }
     }
 
