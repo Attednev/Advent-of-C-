@@ -9,10 +9,8 @@ int solve(std::vector<std::string> input, bool part2 = false) {
 	std::size_t total_sum = 0;
 
 	std::for_each(input.begin(), input.end(), [&](std::string line) {
-		std::string first_element;
-		std::size_t first_pos{0};
-		std::string last_element;
-		std::size_t last_pos{0};
+		std::string first_element, last_element;
+		std::size_t first_pos{0}, last_pos{0};
 
 		std::for_each(numbers.begin(), numbers.end(), [&](auto element) {
 			std::size_t pos{line.find(element)};
@@ -20,13 +18,11 @@ int solve(std::vector<std::string> input, bool part2 = false) {
 				first_pos = pos;
 				first_element = element;
 			}
-		});
-		std::for_each(numbers.begin(), numbers.end(), [&](auto element) {
-			std::size_t pos{line.rfind(element)};
-			if (pos != std::string::npos && (last_element.empty() || pos > last_pos)) {
-				last_pos = pos;
-				last_element = element;
-			}
+            pos = line.rfind(element);
+            if (pos != std::string::npos && (last_element.empty() || pos > last_pos)) {
+                last_pos = pos;
+                last_element = element;
+            }
 		});
 		std::string first_number{numbers[std::distance(numbers.begin(), std::find(numbers.begin(), numbers.end(), first_element)) % 10]};
 		std::string last_number{numbers[std::distance(numbers.begin(), std::find(numbers.begin(), numbers.end(), last_element)) % 10]};

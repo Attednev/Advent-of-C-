@@ -9,17 +9,12 @@ std::size_t get_position_by_index(std::size_t element, std::size_t other1, std::
 }
 
 std::tuple<std::size_t, std::size_t, std::size_t> get_number_of_cubes(const std::string& line, std::size_t start, std::size_t end) {
-    std::size_t red_index{line.substr(start, end - start).find("red")};
-    std::size_t blue_index{line.substr(start, end - start).find("blue")};
-    std::size_t green_index{line.substr(start, end - start).find("green")};
+    std::string substr{line.substr(start, end - start)};
+    std::size_t red_index{substr.find("red")}, blue_index{substr.find("blue")}, green_index{substr.find("green")};
 
-    std::size_t red_position{get_position_by_index(red_index, blue_index, green_index)};
-    std::size_t blue_position{get_position_by_index(blue_index, green_index, red_index)};
-    std::size_t green_position{get_position_by_index(green_index, red_index, blue_index)};
-
-    std::size_t red_cubes{read_nth_number(line.substr(start, end - start), red_position)};
-    std::size_t blue_cubes{read_nth_number(line.substr(start, end - start), blue_position)};
-    std::size_t green_cubes{read_nth_number(line.substr(start, end - start), green_position)};
+    std::size_t red_cubes{read_nth_number(substr, get_position_by_index(red_index, blue_index, green_index))};
+    std::size_t blue_cubes{read_nth_number(substr, get_position_by_index(blue_index, green_index, red_index))};
+    std::size_t green_cubes{read_nth_number(substr, get_position_by_index(green_index, red_index, blue_index))};
 
     return std::make_tuple(red_cubes, blue_cubes, green_cubes);
 }
@@ -29,15 +24,10 @@ void solve(std::vector<std::string> input) {
     std::size_t power_of_cubes{0};
 
     std::for_each(input.begin(), input.end(), [&](const std::string& line) {
-        std::size_t game_id = read_nth_number(line, 1);
-        std::size_t start_index{line.find(':') + 1};
-        std::size_t end_index{line.find(';')};
-
-        std::size_t min_red_cubes{0};
-        std::size_t min_blue_cubes{0};
-        std::size_t min_green_cubes{0};
-
+        std::size_t game_id = read_nth_number(line, 1), start_index{line.find(':') + 1}, end_index{line.find(';')};
+        std::size_t min_red_cubes{0}, min_blue_cubes{0}, min_green_cubes{0};
         bool is_possible_game{true};
+
         while (start_index < end_index) {
             auto [red, blue, green] = get_number_of_cubes(line, start_index, end_index);
 
