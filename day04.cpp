@@ -6,7 +6,7 @@ void add_to_list(const std::string& number, std::vector<std::size_t>& list) {
     }
 }
 
-void extract_numbers(std::string line, std::vector<std::size_t>& winning_numbers, std::vector<std::size_t>& numbers_you_got) {
+void extract_numbers(const std::string& line, std::vector<std::size_t>& winning_numbers, std::vector<std::size_t>& numbers_you_got) {
     short mode{0};      // modes: 0=card_number, 1=winning_numbers, 2=numbers_you_got
     std::string number;
     for (const char symbol : line) {
