@@ -1,5 +1,4 @@
-#include "day01.h"
-
+#include "day0.h"
 
 int solve(std::vector<std::string> input, bool part2 = false) {
 	std::vector<std::string> numbers{"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};

@@ -1,20 +1,8 @@
-#include "day02.h"
+#include "day0.h"
 
-std::size_t read_nth_number(std::string str, std::size_t n) {
-    std::string number = "0";
-    std::size_t i{0};
-    for (std::size_t j = 0; j < n; j++) {
-        number = "0";
-        for (; i < str.length(); i++) {
-            if (str[i] >= '0' && str[i] <= '9') {
-                number.append(&str[i]);
-            } else if (number.length() != 1) {
-                break;
-            }
-        }
-    }
-    return std::stoi(number);
-}
+#define MAX_RED 12
+#define MAX_BLUE 14
+#define MAX_GREEN 13
 
 std::size_t get_position_by_index(std::size_t element, std::size_t other1, std::size_t other2) {
     return element < other1 && element < other2 ? 1 : element > other1 && element > other2 ? 3 : 2;
@@ -27,8 +15,8 @@ void solve(std::vector<std::string> input) {
     std::for_each(input.begin(), input.end(), [&](std::string line) {
 
         std::size_t game_id = read_nth_number(line, 1);
-        std::size_t start_index{line.find(":") + 1};
-        std::size_t end_index{line.find(";")};
+        std::size_t start_index{line.find(':') + 1};
+        std::size_t end_index{line.find(';')};
 
         std::size_t min_red_cubes{0};
         std::size_t min_blue_cubes{0};
