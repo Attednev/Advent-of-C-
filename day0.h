@@ -1,5 +1,4 @@
 #pragma once
-
 #include <iostream>
 #include <fstream>
 #include <algorithm>
@@ -11,6 +10,7 @@
 #include <cerrno>
 #include <cstring>
 #include <unordered_map>
+#include <cmath>
 
 std::vector<std::string> read_input_file(const std::string &filename) {
     std::ifstream file(filename);
@@ -59,6 +59,19 @@ std::string join(const std::vector<std::size_t> &list, const std::string &charac
     return output;
 }
 
+std::string join(const std::vector<std::size_t> &list) {
+    std::string output;
+    for (const std::size_t number : list)
+        output.append(std::to_string(number));
+    return output;
+}
+
+std::string join(const std::vector<std::string> &list) {
+    std::string output;
+    for (const std::string& str : list)
+        output.append(str);
+    return output;
+}
 
 bool contains(std::vector<std::string>& list, const std::string& element) {
     return std::any_of(list.begin(), list.end(), [&](const auto& e) { return e == element; });
@@ -80,25 +93,23 @@ std::size_t min(std::size_t a, std::size_t b) {
     return (a < b) * a + (a >= b) * b;
 }
 
-
-
-
-/*std::size_t read_nth_number(std::string str, std::size_t n, bool return_position = false, bool throw_on_error = false) {
-    std::string number = "0";
-    std::size_t i{0};
-    for (std::size_t j = 0; j < n; j++) {
-        if (!throw_on_error) {
-            number = "0";
-        }
-        for (; i < str.length(); i++) {
-            if (str[i] >= '0' && str[i] <= '9') {
-                number += str[i];
-            } else if (number.length() != 1) {
-                i++;
-                break;
-            }
-        }
+template <typename T>
+void print_vector(std::vector<T> list) {
+    std::cout << "[";
+    for (std::size_t i = 0; i < list.size(); i++) {
+        std::cout << list[i];
+        if (i + 1 < list.size())
+            std::cout << ", ";
     }
-    std::cout << "line: " << str << " | number: " << number << std::endl;
-    return return_position ? i - number.length() : std::stoi(number);
-}*/
+    std::cout << "]" << std::endl;
+}
+
+template <typename T, typename S>
+void print_map(std::unordered_map<T, S> map) {
+    std::cout << "{" << std::endl;
+    for (auto& [k, v] : map) {
+        std::cout << "    {" << k << ": " << v;
+        std::cout << "}" << std::endl;
+    }
+    std::cout << "}" << std::endl;
+}
