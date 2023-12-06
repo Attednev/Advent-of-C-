@@ -1,4 +1,23 @@
-#include "day0.h"
+#include "../day0.h"
+
+std::size_t read_nth_number(std::string str, std::size_t n, bool return_position = false, bool throw_on_error = false) {
+    std::string number = "0";
+    std::size_t i{0};
+    for (std::size_t j = 0; j < n; j++) {
+        if (!throw_on_error) {
+            number = "0";
+        }
+        for (; i < str.length(); i++) {
+            if (str[i] >= '0' && str[i] <= '9') {
+                number += str[i];
+            } else if (number.length() != 1) {
+                i++;
+                break;
+            }
+        }
+    }
+    return return_position ? i - number.length() : std::stoi(number);
+}
 
 long long
 add_part_values(std::vector<std::pair<long long, char>> &positions, std::size_t number, std::size_t number_pos_size_t,
@@ -71,5 +90,7 @@ void solve(std::vector<std::string> input) {
 }
 
 int main() {
-    solve(read_input_file(3));
+    std::cout << "Currently broken" << std::endl;
+    return -1;
+    solve(read_input_file("../day03/day03_input"));
 }
