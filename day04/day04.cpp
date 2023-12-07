@@ -1,6 +1,6 @@
 #include "../day0.h"
 
-void solve(std::vector<std::string> lines) {
+void solve(const std::vector<std::string>& lines) {
     std::size_t total_points{0};
     std::vector<std::size_t> number_of_cards_owned(lines.size(), 1);
     for (std::size_t i = 0; i < lines.size(); i++) {

@@ -14,7 +14,7 @@ std::size_t get_number_of_possible_wins(std::unordered_map<std::size_t, std::siz
     return total;
 }
 
-void solve(std::vector<std::string> lines) {
+void solve(const std::vector<std::string>& lines) {
     std::vector<std::size_t> time{to_number_vector(split(split(lines[0], ':')[1]))};
     std::vector<std::size_t> record{to_number_vector(split(split(lines[1], ':')[1]))};
     std::size_t concat_time{std::stoul(join(time))};

@@ -4,13 +4,6 @@ struct resource_range {
     long long range_delta{0};
     std::size_t range_end{0};
 };
-void print_map(std::unordered_map<std::size_t, resource_range> map) {
-    std::cout << "{" << std::endl;
-    for (auto& [k, v] : map) {
-        std::cout << "    {" << k << ": [" << v.range_delta << ", " << v.range_end << "]}" << std::endl;
-    }
-    std::cout << "}" << std::endl;
-}
 
 void transfer_to_next_stage_part1(std::vector<std::size_t>& resources, std::unordered_map<std::size_t, resource_range>& translation) {
     for (std::size_t& resource : resources) {
@@ -58,7 +51,7 @@ void transfer_to_next_stage_part2(std::vector<std::size_t>& resources, std::unor
     }
 }
 
-void parse_input(std::vector<std::string>& lines, std::vector<std::size_t>& seeds, std::vector<std::unordered_map<std::size_t, resource_range>>& maps) {
+void parse_input(const std::vector<std::string>& lines, std::vector<std::size_t>& seeds, std::vector<std::unordered_map<std::size_t, resource_range>>& maps) {
     seeds = to_number_vector(split(split(lines[0], ':')[1]));
     std::unordered_map<std::size_t, resource_range> translation{};
     for (std::size_t i = 1; i < lines.size(); i++) {
@@ -76,7 +69,7 @@ void parse_input(std::vector<std::string>& lines, std::vector<std::size_t>& seed
         maps.push_back(translation);
 }
 
-void solve(std::vector<std::string> lines) {
+void solve(const std::vector<std::string>& lines) {
     std::vector<std::size_t> seeds{};
     std::vector<std::unordered_map<std::size_t, resource_range>> maps{};
     parse_input(lines, seeds, maps);

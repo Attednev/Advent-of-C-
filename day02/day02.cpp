@@ -9,7 +9,7 @@ std::vector<std::size_t> get_ordering(const std::string& str) {
     return {0ul + (r >= b) + (r > g), 0ul + (b > r) + (b >= g), 0ul + (g >= r) + (g > b)};
 }
 
-void solve(std::vector<std::string> input) {
+void solve(const std::vector<std::string>& input) {
     std::size_t sum_of_game_ids{0};
     std::size_t power_of_cubes{0};
     std::for_each(input.begin(), input.end(), [&](const std::string& line) {
