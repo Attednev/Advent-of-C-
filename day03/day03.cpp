@@ -1,96 +1,83 @@
 #include "../day0.h"
 
-std::size_t read_nth_number(std::string str, std::size_t n, bool return_position = false, bool throw_on_error = false) {
-    std::string number = "0";
-    std::size_t i{0};
-    for (std::size_t j = 0; j < n; j++) {
-        if (!throw_on_error) {
-            number = "0";
-        }
-        for (; i < str.length(); i++) {
-            if (str[i] >= '0' && str[i] <= '9') {
-                number += str[i];
-            } else if (number.length() != 1) {
-                i++;
-                break;
+struct symbol {
+    std::size_t line;
+    std::size_t column;
+    std::vector<std::size_t> surrounding_numbers{};
+    bool operator==(const symbol& other) const {
+        return line == other.line && column == other.column;
+    }
+};
+
+struct range {
+    long long line{};
+    long long start_pos{};
+    long long end_pos{};
+};
+
+struct machine_state{
+    const std::vector<std::string>& input;
+    std::vector<symbol>& symbol_positions;
+    const std::vector<char> symbols{'*', '+', '#', '-', '@', '$', '%', '&', '/', '='};
+};
+
+bool is_adjacent_to_symbol(std::vector<symbol>& symbol_positions, const range& range, std::size_t number) {
+    for (std::size_t line_number = range.line < 1 ? 0 : range.line - 1; line_number <= range.line + 1; line_number++)
+        for (std::size_t column = range.start_pos < 0 ? 0 : range.start_pos; column <= range.end_pos; column++) {
+            symbol position{line_number, column};
+            if (contains(symbol_positions, position)) {
+                symbol_positions[get_index_of(symbol_positions, position)].surrounding_numbers.push_back(number);
+                return true;
             }
         }
-    }
-    return return_position ? i - number.length() : std::stoi(number);
+    return false;
 }
 
-long long
-add_part_values(std::vector<std::pair<long long, char>> &positions, std::size_t number, std::size_t number_pos_size_t,
-                std::vector<std::vector<long long>> &gear_ratio) {
-    long long number_length{static_cast<long long>(std::to_string(number).length())};
-    long long number_position{static_cast<long long>(number_pos_size_t)};
-    long long output{0};
-    for (auto [index, symbol] : positions) {
-        if (index - number_position >= -1 && index - number_position <= number_length) {
-            output = static_cast<long long>(number);
-            if (symbol == '*') {
-                gear_ratio[index].push_back(static_cast<long long>(number));
-                return output;
-            }
-        }
-    }
-    return output;
-}
-
-std::vector<std::pair<long long, char>> find_symbols(std::string line) {
-    std::vector<std::pair<long long, char>> output{};
-    for (long long i = 0; i < line.length(); i++) {
-        if (line[i] != '.' && line[i] >= '!' && (line[i] < '0' || line[i] > '9')) {
-            output.emplace_back(i, line[i]);
-        }
-    }
-    return output;
-}
-
-void solve(std::vector<std::string> input) {
+std::size_t calculate_gear_sum(const machine_state& state) {
     std::size_t total{0};
-    std::size_t number;
-    std::vector<std::vector<std::vector<long long>>> gear_ratio{};
-    for (std::size_t i = 0; i < input.size() + 2; i++) {
-        std::vector<std::vector<long long>> v1{};
-        for (std::size_t j = 0; j < input[0].length(); j++) {
-            std::vector<long long> v{};
-            v1.push_back(v);
-        }
-        gear_ratio.push_back(v1);
-    }
-    for (std::size_t i = 0; i < input.size(); i++) {
-        std::vector<std::pair<long long, char>> above = find_symbols(i > 0 ? input[i - 1] : "");
-        std::vector<std::pair<long long, char>> center = find_symbols(input[i]);
-        std::vector<std::pair<long long, char>> below = find_symbols(i + 1 < input.size() ? input[i + 1] : "");
+    for (long long i = 0; i < state.input.size(); i++) {
+        std::string line{state.input[i]};
+        std::replace_if(line.begin(), line.end(), [&](char symbol) {
+            return symbol == '\r' || contains(state.symbols, symbol);
+        }, '.');
+        std::vector<std::string> splits{split(line, '.')};
 
-        for (std::size_t j = 1; (number = read_nth_number(input[i], j)) != 0; j++) {
-            std::size_t number_position = read_nth_number(input[i], j, true);
-            for (short k = 1; k <= 3; k++) {
-                long long parts_found = add_part_values(above, number, number_position, gear_ratio[i + k]);
-                if (parts_found != 0) {
-                    total += parts_found;
-                    break;
-                }
+        long long end_pos{-1};
+        for (const auto& split : splits) {
+            if (split.length() == 0) {
+                end_pos++;
+                continue;
             }
+            long long number_length{static_cast<long long>(split.length())};
+            end_pos += number_length + 1;
+            if (is_adjacent_to_symbol(state.symbol_positions, {i, end_pos - number_length - 1, end_pos}, std::stoi(split)))
+                total += std::stoi(split);
         }
     }
+    return total;
+}
 
-    std::size_t gear_sum{0};
-    for (const std::vector<std::vector<long long>>& v1 : gear_ratio) {
-        for (std::vector<long long> v : v1) {
-            if (v.size() == 2) {
-                gear_sum += v[0] * v[1];
-            }
-        }
-    }
+void get_symbol_positions(const machine_state& state) {
+    for (std::size_t i = 0; i < state.input.size(); i++)
+        for (std::size_t j = 0; j < state.input[i].size(); j++)
+            if (contains(state.symbols, state.input[i].at(j)))
+                state.symbol_positions.emplace_back(i, j);
+}
 
-    std::cout << "The sum of all the important parts is " << total << std::endl;
-    std::cout << "The sum of gear ratios is " << gear_sum << std::endl;
+void solve(const std::vector<std::string>& input) {
+    std::vector<symbol> symbol_positions{};
+    machine_state state{input, symbol_positions};
+    get_symbol_positions(state);
+    std::size_t gear_sum{calculate_gear_sum(state)};
+    std::size_t gear_ratio{0};
+    for (const symbol& s : symbol_positions)
+        if (s.surrounding_numbers.size() == 2)
+            gear_ratio += std::accumulate(s.surrounding_numbers.begin(), s.surrounding_numbers.end(), 1, std::multiplies<>());
+
+    std::cout << "1) Result is " << gear_sum << std::endl;
+    std::cout << "2) Result is " << gear_ratio << std::endl;
 }
 
 int main() {
-    std::cout << "Currently broken" << std::endl;
-    return -1;
     solve(read_input_file("../day03/day03_input"));
 }
