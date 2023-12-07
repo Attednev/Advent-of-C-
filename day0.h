@@ -10,6 +10,7 @@
 #include <cerrno>
 #include <cstring>
 #include <unordered_map>
+#include <cstdint>
 #include <cmath>
 
 std::vector<std::string> read_input_file(const std::string &filename) {
@@ -83,6 +84,11 @@ bool contains(std::vector<std::string>& list, char element) {
 
 bool contains(std::vector<std::size_t>& list, std::size_t element) {
     return std::any_of(list.begin(), list.end(), [&](const auto& e) { return e == element; });
+}
+
+template <typename T, typename S>
+bool contains(std::unordered_map<T, S>& list, T element) {
+    return std::any_of(list.begin(), list.end(), [&](const auto& e) { return e.first == element; });
 }
 
 std::size_t max(std::size_t a, std::size_t b) {
