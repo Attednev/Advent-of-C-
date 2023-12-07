@@ -6,6 +6,7 @@
 #include <string>
 #include <limits>
 #include <numeric>
+#include <optional>
 #include <utility>
 #include <cerrno>
 #include <cstring>
@@ -13,7 +14,7 @@
 #include <cstdint>
 #include <cmath>
 
-std::vector<std::string> read_input_file(const std::string &filename) {
+std::vector<std::string> read_input_file(const std::string& filename) {
     std::ifstream file(filename);
     if (!file.is_open()) throw std::runtime_error("Unable to read file: " + std::string{std::strerror(errno)});
     std::vector<std::string> result{};
@@ -22,7 +23,7 @@ std::vector<std::string> read_input_file(const std::string &filename) {
     return result;
 }
 
-std::vector<std::string> split(const std::string &string, char character) {
+std::vector<std::string> split(const std::string& string, const char character) {
     std::vector<std::string> output{};
     std::size_t start_pos, end_pos{0};
     while ((start_pos = end_pos) != std::string::npos) {
@@ -33,7 +34,7 @@ std::vector<std::string> split(const std::string &string, char character) {
     return output;
 }
 
-std::vector<std::string> split(const std::string &string) {
+std::vector<std::string> split(const std::string& string) {
     std::vector<std::string> output{split(string, ' ')};
     std::erase_if(output, [](const std::string &element) { return element.empty(); });
     return output;
@@ -46,61 +47,68 @@ std::vector<std::size_t> to_number_vector(const std::vector<std::string>& list) 
     return output;
 }
 
-std::string join(const std::vector<std::string> &list, const std::string &character) {
+std::string join(const std::vector<std::string>& list, const std::string& character) {
     std::string output;
     for (std::size_t i = 0; i < list.size(); i++)
         output.append(list[i]).append(i + 1 < list.size() ? character : "");
     return output;
 }
 
-std::string join(const std::vector<std::size_t> &list, const std::string &character) {
+std::string join(const std::vector<std::size_t>& list, const std::string& character) {
     std::string output;
     for (std::size_t i = 0; i < list.size(); i++)
         output.append(std::to_string(list[i])).append(i + 1 < list.size() ? character : "");
     return output;
 }
 
-std::string join(const std::vector<std::size_t> &list) {
+std::string join(const std::vector<std::size_t>& list) {
     std::string output;
     for (const std::size_t number : list)
         output.append(std::to_string(number));
     return output;
 }
 
-std::string join(const std::vector<std::string> &list) {
+std::string join(const std::vector<std::string>& list) {
     std::string output;
     for (const std::string& str : list)
         output.append(str);
     return output;
 }
 
-bool contains(std::vector<std::string>& list, const std::string& element) {
+template <typename T>
+bool contains(const std::vector<T>& list, const T element) {
     return std::any_of(list.begin(), list.end(), [&](const auto& e) { return e == element; });
 }
 
-bool contains(std::vector<std::string>& list, char element) {
+bool contains(const std::vector<std::string>& list, const char element) {
     return contains(list, std::string{element});
 }
 
-bool contains(std::vector<std::size_t>& list, std::size_t element) {
-    return std::any_of(list.begin(), list.end(), [&](const auto& e) { return e == element; });
-}
-
 template <typename T, typename S>
-bool contains(std::unordered_map<T, S>& list, T element) {
+bool contains(const std::unordered_map<T, S>& list, const T element) {
     return std::any_of(list.begin(), list.end(), [&](const auto& e) { return e.first == element; });
 }
 
-std::size_t max(std::size_t a, std::size_t b) {
+std::size_t max(const std::size_t a, const std::size_t b) {
     return (a < b) * b + (a >= b) * a;
 }
 
-std::size_t min(std::size_t a, std::size_t b) {
+std::size_t min(const std::size_t a, const std::size_t b) {
     return (a < b) * a + (a >= b) * b;
+}
+namespace range_index {
+    std::size_t npos = std::string::npos;
+}
+template <typename T>
+std::size_t get_index_of(const std::vector<T> list, const T element) {
+    for (std::size_t i = 0; i < list.size(); i++)
+        if (list[i] == element)
+            return i;
+    return range_index::npos;
 }
 
 template <typename T>
-void print_vector(std::vector<T> list) {
+void print_vector(const std::vector<T>& list) {
     std::cout << "[";
     for (std::size_t i = 0; i < list.size(); i++) {
         std::cout << list[i];
@@ -111,7 +119,7 @@ void print_vector(std::vector<T> list) {
 }
 
 template <typename T, typename S>
-void print_map(std::unordered_map<T, S> map) {
+void print_map(const std::unordered_map<T, S>& map) {
     std::cout << "{" << std::endl;
     for (auto& [k, v] : map) {
         std::cout << "    {" << k << ": " << v;
