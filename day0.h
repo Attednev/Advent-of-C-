@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <vector>
 #include <string>
+#include <variant>
 #include <limits>
 #include <numeric>
 #include <optional>
@@ -45,6 +46,20 @@ std::vector<std::size_t> to_number_vector(const std::vector<std::string>& list) 
     output.reserve(list.size());
     std::for_each(list.begin(), list.end(), [&](auto element) { output.push_back(std::stoul(element)); });
     return output;
+}
+
+std::string trim(const std::string& element) {
+    std::size_t start_pos{0};
+    std::size_t end_pos{element.length() - 1};
+    for (; start_pos < element.length(); start_pos++)
+        if (element[start_pos] != ' ' && element[start_pos] != '\r')
+            break;
+    for (; end_pos > start_pos; end_pos--)
+        if (element[start_pos] != ' ' && element[start_pos] != '\r')
+            break;
+    if (start_pos == end_pos)
+        return std::string{""};
+    return element.substr(start_pos, end_pos - start_pos);
 }
 
 std::string join(const std::vector<std::string>& list, const std::string& character) {
