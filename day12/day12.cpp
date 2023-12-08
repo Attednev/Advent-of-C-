@@ -1,8 +1,8 @@
 #include "../day0.h"
 
-void solve(std::vector<std::string> lines) {
+void solve(const std::vector<std::string>& lines) {
 }
 
 int main() {
-    solve(read_input_file("../day12/day12_input"));
+    solve(read_input_file("../inputs/day12"));
 }

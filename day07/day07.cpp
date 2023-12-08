@@ -99,6 +99,6 @@ void solve(const std::vector<std::string>& lines, bool part2) {
 }
 
 int main() {
-    solve(read_input_file("../day07/day07_input"), false);
-    solve(read_input_file("../day07/day07_input"), true);
+    solve(read_input_file("../inputs/day07"), false);
+    solve(read_input_file("../inputs/day07"), true);
 }

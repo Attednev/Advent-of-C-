@@ -26,5 +26,5 @@ void solve(const std::vector<std::string>& lines) {
 }
 
 int main() {
-    solve(read_input_file("../day04/day04_input"));
+    solve(read_input_file("../inputs/day04"));
 }
