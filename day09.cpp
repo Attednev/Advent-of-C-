@@ -11,9 +11,8 @@ struct extrapolation {
 
 extrapolation extrapolate(std::vector<long long>&& values) {
     extrapolation total{0, 0};
-    bool odd_iteration{true};
-    while (!std::all_of(values.begin(), values.end(), [](auto i) { return i == 0; })) {
-        total.front += (1 - 2 * odd_iteration) * values.front();
+    for (bool odd{false}; !std::all_of(values.begin(), values.end(), [](auto i) { return i == 0; }); odd = !odd) {
+        total.front += (1 - 2 * odd) * values.front();
         total.back += values.back();
         std::adjacent_difference(values.begin(), values.end(), values.begin());
         values.erase(values.begin());
