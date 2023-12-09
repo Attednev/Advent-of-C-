@@ -48,6 +48,13 @@ std::vector<std::size_t> to_number_vector(const std::vector<std::string>& list) 
     return output;
 }
 
+std::vector<long long> to_number_svector(const std::vector<std::string>& list) {
+    std::vector<long long> output{};
+    output.reserve(list.size());
+    std::for_each(list.begin(), list.end(), [&](auto element) { output.push_back(std::stoll(element)); });
+    return output;
+}
+
 std::string trim(const std::string& element) {
     std::size_t start_pos{0};
     std::size_t end_pos{element.length() - 1};
