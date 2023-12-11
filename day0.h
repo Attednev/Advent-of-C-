@@ -35,9 +35,13 @@ std::vector<std::string> split(const std::string& string, const char character) 
     return output;
 }
 
+void remove_empty(std::vector<std::string>& list) {
+    std::erase_if(list, [](const std::string &element) { return element.empty(); });
+}
+
 std::vector<std::string> split(const std::string& string) {
     std::vector<std::string> output{split(string, ' ')};
-    std::erase_if(output, [](const std::string &element) { return element.empty(); });
+    remove_empty(output);
     return output;
 }
 
@@ -109,6 +113,12 @@ bool contains(const std::vector<std::string>& list, const char element) {
 template <typename T, typename S>
 bool contains(const std::unordered_map<T, S>& list, const T element) {
     return std::any_of(list.begin(), list.end(), [&](const auto& e) { return e.first == element; });
+}
+
+template <typename T, typename S>
+void insert_or_append(std::unordered_map<T, std::vector<S>>& map, T key, S value) {
+    if (map.find(key) == map.end()) map.insert({key, {value}});
+    else map[key].push_back(value);
 }
 
 std::size_t max(const std::size_t a, const std::size_t b) {
