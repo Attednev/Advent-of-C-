@@ -14,6 +14,7 @@
 #include <unordered_map>
 #include <cstdint>
 #include <cmath>
+#include <stack>
 
 std::vector<std::string> read_input_file(const std::string& filename) {
     std::ifstream file(filename);
