@@ -67,11 +67,11 @@ std::string trim(const std::string& element) {
         if (element[start_pos] != ' ' && element[start_pos] != '\r')
             break;
     for (; end_pos > start_pos; end_pos--)
-        if (element[start_pos] != ' ' && element[start_pos] != '\r')
+        if (element[end_pos] != ' ' && element[end_pos] != '\r')
             break;
     if (start_pos == end_pos)
         return std::string{""};
-    return element.substr(start_pos, end_pos - start_pos);
+    return element.substr(start_pos, end_pos - start_pos + 1);
 }
 
 std::string join(const std::vector<std::string>& list, const std::string& character) {
