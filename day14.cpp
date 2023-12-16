@@ -59,14 +59,6 @@ std::size_t calculate_load(std::vector<std::string> lines, std::size_t number_of
     return evaluate_position(lines);
 }
 
-std::vector<std::string> trim_lines(const std::vector<std::string>& lines) {
-    std::vector<std::string> trimmed{};
-    trimmed.reserve(lines.size());
-    for (auto& line : lines)
-        trimmed.emplace_back(trim(line));
-    return std::move(trimmed);
-}
-
 void solve(const std::vector<std::string>& lines) {
     std::cout << "1) Result is " << calculate_load(trim_lines(lines)) << std::endl;
     std::cout << "2) Result is " << calculate_load(trim_lines(lines), 1'000'000'000) << std::endl;

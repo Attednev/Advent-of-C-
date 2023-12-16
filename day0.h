@@ -161,3 +161,11 @@ void print_map(const std::unordered_map<T, S>& map) {
     }
     std::cout << "}" << std::endl;
 }
+
+std::vector<std::string> trim_lines(const std::vector<std::string>& lines) {
+    std::vector<std::string> trimmed{};
+    trimmed.reserve(lines.size());
+    for (auto& line : lines)
+        trimmed.emplace_back(trim(line));
+    return std::move(trimmed);
+}
