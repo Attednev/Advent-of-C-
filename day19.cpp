@@ -114,6 +114,6 @@ void solve(const std::vector<std::string>& lines) {
     std::cout << "2) Result is " << result << std::endl;
 }
 
-int main(int argc, char** argv) {
-    solve(read_input_file("day19_real"));
+int main() {
+    solve(read_input_file("../inputs/day19"));
 }
