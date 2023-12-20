@@ -26,15 +26,19 @@ std::vector<std::string> read_input_file(const std::string& filename) {
     return result;
 }
 
-std::vector<std::string> split(const std::string& string, const char character) {
+std::vector<std::string> split(const std::string& string, const std::string& substr) {
     std::vector<std::string> output{};
     std::size_t start_pos, end_pos{0};
     while ((start_pos = end_pos) != std::string::npos) {
-        end_pos = string.find(character, start_pos);
+        end_pos = string.find(substr, start_pos);
         output.push_back(string.substr(start_pos, end_pos - start_pos));
-        if (end_pos != std::string::npos) end_pos++;
+        if (end_pos != std::string::npos) end_pos += substr.length();
     }
     return output;
+}
+
+std::vector<std::string> split(const std::string& string, const char character) {
+    return split(string, std::string{character});
 }
 
 void remove_empty(std::vector<std::string>& list) {
@@ -70,7 +74,7 @@ std::string trim(const std::string& element) {
     for (; end_pos > start_pos; end_pos--)
         if (element[end_pos] != ' ' && element[end_pos] != '\r')
             break;
-    if (start_pos == end_pos)
+    if (start_pos > end_pos)
         return std::string{""};
     return element.substr(start_pos, end_pos - start_pos + 1);
 }
