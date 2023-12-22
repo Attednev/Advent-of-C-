@@ -107,9 +107,14 @@ std::string join(const std::vector<std::string>& list) {
     return output;
 }
 
+template <typename T, typename S>
+bool contains(const S& list, const T element) {
+    return std::any_of(list.begin(), list.end(), [&](const auto& e) { return e == element; });
+}
+
 template <typename T>
 bool contains(const std::vector<T>& list, const T element) {
-    return std::any_of(list.begin(), list.end(), [&](const auto& e) { return e == element; });
+    return contains<T, std::vector<T>>(list, element);
 }
 
 bool contains(const std::vector<std::string>& list, const char element) {
