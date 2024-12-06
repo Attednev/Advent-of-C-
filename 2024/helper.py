@@ -3,7 +3,7 @@ def get_input():
     file = open('input.txt', 'r')
     lines = file.read().split('\n')
     file.close()
-    return lines
+    return list(filter(None, lines))
 
 
 def get_input_as_str():
