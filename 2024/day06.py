@@ -51,7 +51,7 @@ def part1(data, x, y):
     return visited
 
 
-def get_next_wall(data, x, y, direction, obstacle_x=-1, obstacle_y=-1):
+def get_next_wall(data, x, y, direction, obstacle_x, obstacle_y):
     dx = {UP: 0, DOWN: 0, RIGHT: 1, LEFT: -1}
     dy = {UP: -1, DOWN: 1, RIGHT: 0, LEFT: 0}
     while True:
