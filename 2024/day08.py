@@ -1,5 +1,3 @@
-import operator
-
 from helper import get_input
 
 
