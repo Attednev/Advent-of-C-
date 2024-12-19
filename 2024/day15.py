@@ -133,12 +133,12 @@ def solve(position, grid, walls_horizontal, walls_vertical, movements, relevant_
 
 def part1(position, grid, walls_horizontal, walls_vertical, movements):
     result = solve(position, grid, walls_horizontal, walls_vertical, movements, BOX)
-    print(f'Result for day 1 Part 1: {result}')
+    print(f'Result for day 15 Part 1: {result}')
 
 
 def part2(position, grid, walls_horizontal, walls_vertical, movements):
     result = solve(position, grid, walls_horizontal, walls_vertical, movements, WIDE_BOX_1)
-    print(f'Result for day 1 Part 2: {result}')
+    print(f'Result for day 15 Part 2: {result}')
 
 
 def main():

@@ -43,7 +43,7 @@ def part1(positions):
     positions = let_time_pass(positions, 100)
     q1, q2, q3, q4 = quadrant_count(positions)
     result = q1 * q2 * q3 * q4
-    print(f'Result for day 1 Part 1: {result}')
+    print(f'Result for day 14 Part 1: {result}')
 
 
 def part2(positions):
@@ -76,7 +76,7 @@ def part2(positions):
         variance /= len(distances)
 
         if variance < 400:
-            print(f'Result for day 1 Part 2: {i + 1}')
+            print(f'Result for day 14 Part 2: {i + 1}')
             break
 
 

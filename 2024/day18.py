@@ -63,7 +63,7 @@ def solve(tiles, time=1024):
 
 def part1(tiles):
     shortest_path = solve(tiles)
-    print(f'Result for day 1 Part 1: {len(shortest_path)}')
+    print(f'Result for day 18 Part 1: {len(shortest_path)}')
 
 
 def part2(tiles):
@@ -76,7 +76,7 @@ def part2(tiles):
             high = mid - 1
         else:
             low = mid + 1
-    print(f'Result for day 1 Part 2: {tiles[low + (high - low) // 2]}')
+    print(f'Result for day 18 Part 2: {tiles[low + (high - low) // 2]}')
 
 
 def main():

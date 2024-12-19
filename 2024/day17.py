@@ -67,7 +67,7 @@ def run(program, max_cycles=999999):
 
 
 def part1(program):
-    print(f'Result for day 1 Part 1: {run(program, 100)}')
+    print(f'Result for day 17 Part 1: {run(program, 100)}')
 
 
 def part2(program):
@@ -98,7 +98,7 @@ def part2(program):
             # So in order to get a change in the term-th iteration, A needs to increase by 8 ** term
             A += 8 ** term
 
-    print(f'Result for day 1 Part 2: {find_rec(15, 0)}')
+    print(f'Result for day 17 Part 2: {find_rec(15, 0)}')
 
 
 def main():

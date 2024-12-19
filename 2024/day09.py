@@ -50,7 +50,7 @@ def part1(number):
             break
         numbers = numbers[:next_index] + numbers[i] + numbers[next_index + 1:i]
 
-    print(f'Result for day 1 Part 1: {checksum(numbers, id_to_num)}')
+    print(f'Result for day 9 Part 1: {checksum(numbers, id_to_num)}')
 
 
 def part2(number):
@@ -75,7 +75,7 @@ def part2(number):
                 numbers[i] += numbers[i - 1]
                 numbers = numbers[:i - 1] + numbers[i:]
 
-    print(f'Result for day 1 Part 2: {checksum(''.join(numbers), id_to_num)}')
+    print(f'Result for day 9 Part 2: {checksum(''.join(numbers), id_to_num)}')
 
 
 def main():

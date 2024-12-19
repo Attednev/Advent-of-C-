@@ -36,7 +36,7 @@ def part1(levels):
         if is_safe(row):
             safe_reports += 1
 
-    print(f'Result for day 1 Part 1: {safe_reports}')
+    print(f'Result for day 2 Part 1: {safe_reports}')
 
 
 def part2(levels):
@@ -48,7 +48,7 @@ def part2(levels):
                 safe_reports += 1
                 break
 
-    print(f'Result for day 1 Part 2: {safe_reports}')
+    print(f'Result for day 2 Part 2: {safe_reports}')
 
 
 def main():

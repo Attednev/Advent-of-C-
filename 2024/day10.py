@@ -31,8 +31,8 @@ def solve(data):
         result_part1 += len(set(end_pos))
         result_part2 += len(end_pos)
 
-    print(f'Result for day 1 Part 1: {result_part1}')
-    print(f'Result for day 1 Part 2: {result_part2}')
+    print(f'Result for day 10 Part 1: {result_part1}')
+    print(f'Result for day 10 Part 2: {result_part2}')
 
 
 def main():

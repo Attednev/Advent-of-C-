@@ -44,8 +44,8 @@ def part2(equations):
 def main():
     data = get_input()
     equations = parse_equations(data)
-    print(f'Result for day 1 Part 1: {part1(equations)}')
-    print(f'Result for day 1 Part 2: {part2(equations)}')
+    print(f'Result for day 7 Part 1: {part1(equations)}')
+    print(f'Result for day 7 Part 2: {part2(equations)}')
 
 
 if __name__ == '__main__':

@@ -34,7 +34,7 @@ def part1(puzzle):
                     and rows[y][x] + rows[y - 1][x - 1] + rows[y - 2][x - 2] + rows[y - 3][x - 3] == 'XMAS'):   # UP-lEFT
                 result += 1
 
-    print(f'Result for day 1 Part 1: {result}')
+    print(f'Result for day 4 Part 1: {result}')
 
 
 def part2(puzzle):
@@ -58,7 +58,7 @@ def part2(puzzle):
     counts = Counter(map(tuple, occurrences))
     result = len([s for s in occurrences if counts[tuple(s)] > 1]) // 2
 
-    print(f'Result for day 1 Part 2: {result}')
+    print(f'Result for day 4 Part 2: {result}')
 
 
 def main():

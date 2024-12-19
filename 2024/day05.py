@@ -41,7 +41,7 @@ def part1(ordering, updates):
         if valid:
             result += int(update[len(update) // 2])
 
-    print(f'Result for day 1 Part 1: {result}')
+    print(f'Result for day 5 Part 1: {result}')
 
 
 def part2(ordering, updates):
@@ -64,7 +64,7 @@ def part2(ordering, updates):
         if not valid:
             result += int(update[len(update) // 2])
 
-    print(f'Result for day 1 Part 2: {result}')
+    print(f'Result for day 5 Part 2: {result}')
 
 
 def main():

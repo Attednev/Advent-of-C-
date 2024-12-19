@@ -50,7 +50,7 @@ def solve(maze, start, end, starting_direction):
 
 def part1(maze, start, end):
     result = solve(maze, start, end, RIGHT)
-    print(f'Result for day 1 Part 1: {result}')
+    print(f'Result for day 16 Part 1: {result}')
 
 
 def part2(maze, start, end, maze_part1):
@@ -64,7 +64,7 @@ def part2(maze, start, end, maze_part1):
             if maze[i][j] == maze_part1[end[1]][end[0]] or maze[i][j] + 1000 == maze_part1[end[1]][end[0]]:
                 min_path.add((j, i))
 
-    print(f'Result for day 1 Part 2: {len(min_path)}')
+    print(f'Result for day 16 Part 2: {len(min_path)}')
 
 
 def main():

@@ -11,7 +11,7 @@ def part1(memory):
     for location in locations:
         result += reduce(mul, [int(x) for x in location[4:-1].split(',')])
 
-    print(f'Result for day 1 Part 1: {result}')
+    print(f'Result for day 3 Part 1: {result}')
 
 
 def part2(memory):
@@ -24,7 +24,7 @@ def part2(memory):
             continue
         result += reduce(mul, [int(x) for x in location[4:-1].split(',')])
 
-    print(f'Result for day 1 Part 2: {result}')
+    print(f'Result for day 3 Part 2: {result}')
 
 
 def main():

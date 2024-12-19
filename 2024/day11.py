@@ -51,13 +51,13 @@ def stones_to_dict(stones):
 def part1(stones):
     stones_dict = blink_n_times(stones_to_dict(stones), 25)
     result = stones_dict['ZERO'] + sum(stones_dict['EVEN'].values()) + sum(stones_dict['OTHER'].values())
-    print(f'Result for day 1 Part 1: {result}')
+    print(f'Result for day 11 Part 1: {result}')
 
 
 def part2(stones):
     stones_dict = blink_n_times(stones_to_dict(stones), 75)
     result = stones_dict['ZERO'] + sum(stones_dict['EVEN'].values()) + sum(stones_dict['OTHER'].values())
-    print(f'Result for day 1 Part 2: {result}')
+    print(f'Result for day 11 Part 2: {result}')
 
 
 def main():

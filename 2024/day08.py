@@ -32,7 +32,7 @@ def part1(antennas, max_x, max_y):
                 if 0 <= n_antinode[0] < max_x and 0 <= n_antinode[1] < max_y:
                     antinodes.add(n_antinode)
 
-    print(f'Result for day 1 Part 1: {len(antinodes)}')
+    print(f'Result for day 8 Part 1: {len(antinodes)}')
 
 
 def part2(antennas, max_x, max_y):
@@ -56,7 +56,7 @@ def part2(antennas, max_x, max_y):
                     if 0 <= n_antinode[0] < max_x and 0 <= n_antinode[1] < max_y:
                         antinodes.add(n_antinode)
 
-    print(f'Result for day 1 Part 2: {len(antinodes)}')
+    print(f'Result for day 8 Part 2: {len(antinodes)}')
     return antinodes
 
 

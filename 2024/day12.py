@@ -87,8 +87,8 @@ def solve(garden):
             result_part2 += len(corners) * len(region)
             print(f'Region at {x} {y} with content {garden[y][x]} has {len(corners)} sides with corners {corners}')
 
-    print(f'Result for day 1 Part 1: {result_part1}')
-    print(f'Result for day 1 Part 2: {result_part2}')
+    print(f'Result for day 12 Part 1: {result_part1}')
+    print(f'Result for day 12 Part 2: {result_part2}')
 
 
 def main():

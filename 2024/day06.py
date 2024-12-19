@@ -95,8 +95,8 @@ def main():
     data = get_input()
     x, y = get_starting_position(data)
     data[y] = data[y][:x] + "." + data[y][x + 1:]
-    print(f'Result for day 1 Part 1: {len(part1(data, x, y))}')
-    print(f'Result for day 1 Part 2: {len(part2(data, x, y))}')
+    print(f'Result for day 6 Part 1: {len(part1(data, x, y))}')
+    print(f'Result for day 6 Part 2: {len(part2(data, x, y))}')
 
 
 if __name__ == '__main__':

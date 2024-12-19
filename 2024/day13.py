@@ -35,7 +35,7 @@ def part1(games):
         if f1 > 100 or f2 > 100:
             continue
         result += 3 * f1 + 1 * f2
-    print(f'Result for day 1 Part 1: {result}')
+    print(f'Result for day 13 Part 1: {result}')
 
 
 def part2(games):
@@ -45,7 +45,7 @@ def part2(games):
         if f1 is None or f2 is None:
             continue
         result += 3 * f1 + 1 * f2
-    print(f'Result for day 1 Part 2: {result}')
+    print(f'Result for day 13 Part 2: {result}')
 
 
 def main():
