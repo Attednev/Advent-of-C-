@@ -20,49 +20,46 @@ def let_bytes_fall(grid, time, tiles):
     return grid
 
 
-def solve(tiles, time=1024):
-    # Dijkstra
-    directions = [[None for _ in range(WIDTH)] for _ in range(HEIGHT)]
-    grid = [[999_999 for _ in range(WIDTH)] for _ in range(HEIGHT)]
-    grid = let_bytes_fall(grid, time, tiles)
-
+def dijkstra(maze, start, end):
+    prev_position = [[None for _ in range(len(maze[0]))] for _ in range(len(maze))]
     unvisited = set()
-    for y in range(HEIGHT):
-        for x in range(WIDTH):
-            if grid[y][x] > 0:
+    for y in range(len(maze)):
+        for x in range(len(maze[0])):
+            if maze[y][x] > 0:
                 unvisited.add((x, y))
 
-    grid[0][0] = 0
+    maze[start[1]][start[0]] = 0
     while True:
         min_tile = None
         for u in unvisited:
-            if min_tile is None or grid[u[1]][u[0]] < grid[min_tile[1]][min_tile[0]]:
+            if min_tile is None or maze[u[1]][u[0]] < maze[min_tile[1]][min_tile[0]]:
                 min_tile = u
-        if min_tile is None or grid[min_tile[1]][min_tile[0]] == 999_999:
-            return None
-        if min_tile == (WIDTH - 1, HEIGHT - 1):
+        if min_tile is None or maze[min_tile[1]][min_tile[0]] == 999_999:
+            return None, None
+        if min_tile == end:
             break
         x, y = min_tile
-        neighbours = [(x + 1, y, LEFT), (x, y + 1, UP), (x - 1, y, RIGHT), (x, y - 1, DOWN)]
-        for n_x, n_y, n_d in neighbours:
+        neighbours = [(x + 1, y), (x, y + 1), (x - 1, y), (x, y - 1)]
+        for n_x, n_y in neighbours:
             if (n_x, n_y) not in unvisited:
                 continue
-            grid[n_y][n_x] = min(grid[n_y][n_x], grid[y][x] + 1)
-            directions[n_y][n_x] = n_d
+            maze[n_y][n_x] = min(maze[n_y][n_x], maze[y][x] + 1)
+            prev_position[n_y][n_x] = (x, y)
         unvisited.remove(min_tile)
 
-    delta = {LEFT: (-1, 0), RIGHT: (1, 0), DOWN: (0, 1), UP: (0, -1), None: (0, 0)}
     shortest_path = []
-    x, y = WIDTH - 1, HEIGHT - 1
-    while directions[y][x] is not None:
+    x, y = end
+    while prev_position[y][x] is not None:
         shortest_path.append((x, y))
-        x, y = x + delta[directions[y][x]][0], y + delta[directions[y][x]][1]
+        x, y = prev_position[y][x]
 
-    return shortest_path
+    return shortest_path, maze
 
 
 def part1(tiles):
-    shortest_path = solve(tiles)
+    grid = [[999_999 for _ in range(WIDTH)] for _ in range(HEIGHT)]
+    grid = let_bytes_fall(grid, 1024, tiles)
+    shortest_path, _ = dijkstra(grid, (0, 0), (WIDTH - 1, HEIGHT - 1))
     print(f'Result for day 18 Part 1: {len(shortest_path)}')
 
 
@@ -72,7 +69,10 @@ def part2(tiles):
     high = len(tiles)
     while low <= high:
         mid = low + (high - low) // 2
-        if solve(tiles, mid) is None:
+        grid = [[999_999 for _ in range(WIDTH)] for _ in range(HEIGHT)]
+        grid = let_bytes_fall(grid, mid, tiles)
+        shortest_path, _ = dijkstra(grid, (0, 0), (WIDTH - 1, HEIGHT - 1))
+        if shortest_path is None:
             high = mid - 1
         else:
             low = mid + 1
