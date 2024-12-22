@@ -46,7 +46,6 @@ def solve(codes, directional_pads):
     return result
 
 
-#176650 result
 def part1(codes):
     print(f'Result for day 21 Part 1: {solve(codes, 2)}')
 
